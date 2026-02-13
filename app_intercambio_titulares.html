@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intercambio de Titulares | Fonvi Apps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #ec4899;
+        --bg-dark: #0f172a;
+        --surface: #1e293b;
+        --surface-hover: #334155;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --success: #10b981;
+        --sidebar-width: 280px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        background-color: var(--bg-dark);
+        background-image:
+          radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+          radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+          radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+        color: var(--text-main);
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        padding-left: 10px;
+      }
+
+      .logo-icon {
+        width: 35px;
+        height: 35px;
+        background: var(--primary);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+
+      .sidebar-logo span {
+        font-weight: 700;
+        font-size: 1.1rem;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-menu {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+        text-decoration: none;
+        color: var(--text-muted);
+        border-radius: 14px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-main);
+        padding-left: 22px;
+      }
+
+      .nav-item.active {
+        background: rgba(99, 102, 241, 0.15);
+        color: var(--primary);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+      }
+
+      .nav-item svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Main Content Layout */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #818cf8 0%, #f472b6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
+      }
+
+      p.subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .input-group {
+        margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        gap: 12px;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        background: rgba(15, 23, 42, 0.6);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: white;
+        font-size: 1.1rem;
+        font-family: "Outfit", sans-serif;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      input[type="text"]:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      }
+
+      input[type="text"]::placeholder {
+        color: rgba(148, 163, 184, 0.5);
+      }
+
+      button.primary-btn {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Outfit", sans-serif;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      button.primary-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .result-container {
+        background: #0f172a;
+        border-radius: 16px;
+        padding: 0;
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 0;
+      }
+
+      .result-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+        height: auto;
+        margin-top: 30px;
+      }
+
+      .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .result-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .copy-btn {
+        background: transparent !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-muted) !important;
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+        height: auto !important;
+        width: auto !important;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: white !important;
+        border-color: white !important;
+        transform: none !important;
+      }
+
+      .copy-btn.copied {
+        background: rgba(16, 185, 129, 0.1) !important;
+        border-color: var(--success) !important;
+        color: var(--success) !important;
+      }
+
+      pre {
+        margin: 0;
+        padding: 20px;
+        overflow-x: auto;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #e2e8f0;
+      }
+
+      /* Syntax simulation */
+      .sql-keyword {
+        color: #c084fc;
+        font-weight: bold;
+      }
+      .sql-string {
+        color: #86efac;
+      }
+      .sql-comment {
+        color: #64748b;
+        font-style: italic;
+      }
+      .sql-operator {
+        color: #f472b6;
+      }
+
+      @media (max-width: 1100px) {
+        :root {
+          --sidebar-width: 80px;
+        }
+        .sidebar-logo span,
+        .nav-item span {
+          display: none;
+        }
+        .sidebar-logo {
+          justify-content: center;
+          padding: 0;
+        }
+        .nav-item {
+          justify-content: center;
+          padding: 14px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .main-content {
+          margin-left: 0;
+          width: 100%;
+        }
+        .container {
+          padding: 24px;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-icon">F</div>
+        <span>Fonvi Apps</span>
+      </div>
+      <ul class="nav-menu">
+        <li>
+          <a href="index.html" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="7" height="9" x="3" y="3" rx="1" />
+              <rect width="7" height="5" x="14" y="3" rx="1" />
+              <rect width="7" height="9" x="14" y="12" rx="1" />
+              <rect width="7" height="5" x="3" y="16" rx="1" />
+            </svg>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="App de cambio de codigo v2.html" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+              <path d="M8 13h2" />
+              <path d="M8 17h2" />
+              <path d="M14 13h2" />
+              <path d="M14 17h2" />
+            </svg>
+            <span>Cambio de estado y proceso</span>
+          </a>
+        </li>
+        <li>
+          <a href="app actualizar puntajes.html" class="nav-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m12 14 4-4" />
+              <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+              <path d="m9.01 13 4 4" />
+            </svg>
+            <span>Puntajes</span>
+          </a>
+        </li>
+        <li>
+          <a href="app_intercambio_titulares.html" class="nav-item active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m16 3 4 4-4 4" />
+              <path d="M20 7H4" />
+              <path d="m8 21-4-4 4-4" />
+              <path d="M4 17h16" />
+            </svg>
+            <span>Titulares</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+        <header>
+          <h1>Intercambio de Titulares</h1>
+          <p class="subtitle">
+            Generador de scripts SQL para actualización de solicitudes
+          </p>
+        </header>
+
+        <div class="input-group">
+          <label for="codigoInput">Código de Solicitud</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="codigoInput"
+              placeholder="Ej: SH461182"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="generateBtn" class="primary-btn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8" />
+                <path d="M3 21h18" />
+                <path d="m21 7-6-6m6 6v4.8m0-4.8h-4.8" />
+                <path d="M3 3h18" />
+                <path d="M3 12h18" />
+              </svg>
+              Generar Script
+            </button>
+          </div>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+          <div class="result-header">
+            <span class="result-title">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="4 7 4 4 20 4 20 7" />
+                <line x1="9" y1="20" x2="15" y2="20" />
+                <line x1="12" y1="4" x2="12" y2="20" />
+              </svg>
+              Script Generado
+            </span>
+            <button class="copy-btn" id="copyBtn">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-right: 4px"
+              >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path
+                  d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                />
+              </svg>
+              Copiar
+            </button>
+          </div>
+          <pre id="codeOutput"></pre>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const codigoInput = document.getElementById("codigoInput");
+      const generateBtn = document.getElementById("generateBtn");
+      const resultContainer = document.getElementById("resultContainer");
+      const codeOutput = document.getElementById("codeOutput");
+      const copyBtn = document.getElementById("copyBtn");
+
+      const getSqlTemplate = (codigo) => {
+        return `<span class="sql-keyword">UPDATE</span> solicitudes 
+<span class="sql-keyword">SET</span> 
+    <span class="sql-comment">-- Intercambio de Cédulas</span>
+    cedula <span class="sql-operator">=</span> cedula_conyuge,
+    cedula_conyuge <span class="sql-operator">=</span> cedula,
+    
+    <span class="sql-comment">-- Intercambio de Nombres y Apellidos</span>
+    nombres <span class="sql-operator">=</span> nombres_conyuge,
+    nombres_conyuge <span class="sql-operator">=</span> nombres,
+    apellidos <span class="sql-operator">=</span> apellidos_conyuge,
+    apellidos_conyuge <span class="sql-operator">=</span> apellidos,
+    
+    <span class="sql-comment">-- Intercambio de Género y Nacimiento</span>
+    genero <span class="sql-operator">=</span> genero_conyuge,
+    genero_conyuge <span class="sql-operator">=</span> genero,
+    nacimiento <span class="sql-operator">=</span> nacimiento_conyuge,
+    nacimiento_conyuge <span class="sql-operator">=</span> nacimiento,
+    edad_so <span class="sql-operator">=</span> edad_co,
+    edad_co <span class="sql-operator">=</span> edad_so,
+    
+    <span class="sql-comment">-- Intercambio de Contacto y Ocupación</span>
+    celular <span class="sql-operator">=</span> celular_conyuge,
+    celular_conyuge <span class="sql-operator">=</span> celular,
+    correo <span class="sql-operator">=</span> correo_conyuge,
+    correo_conyuge <span class="sql-operator">=</span> correo,
+    id_ocupacion <span class="sql-operator">=</span> id_ocupacion_conyuge,
+    id_ocupacion_conyuge <span class="sql-operator">=</span> id_ocupacion,
+    
+    <span class="sql-comment">-- Intercambio de Condiciones Especiales</span>
+    embarazada <span class="sql-operator">=</span> conyuge_embarazada,
+    conyuge_embarazada <span class="sql-operator">=</span> embarazada,
+    discapacidad <span class="sql-operator">=</span> conyuge_discapacidad,
+    conyuge_discapacidad <span class="sql-operator">=</span> discapacidad,
+    id_discapacidad <span class="sql-operator">=</span> id_discapacidad_conyuge,
+    id_discapacidad_conyuge <span class="sql-operator">=</span> id_discapacidad,
+    empleado <span class="sql-operator">=</span> conyuge_empleado,
+    conyuge_empleado <span class="sql-operator">=</span> empleado,
+    
+    <span class="sql-comment">-- Intercambio de Ingresos y Datos Laborales</span>
+    ingresos_so <span class="sql-operator">=</span> ingresos_co,
+    ingresos_co <span class="sql-operator">=</span> ingresos_so,
+    tss_salario_prom_so <span class="sql-operator">=</span> tss_salario_prom_co,
+    tss_salario_prom_co <span class="sql-operator">=</span> tss_salario_prom_so
+    
+<span class="sql-keyword">WHERE</span> codigo_solicitud <span class="sql-operator">=</span> <span class="sql-string">'${codigo}'</span>;`;
+      };
+
+      const getRawSql = (codigo) => {
+        return `UPDATE solicitudes 
+SET 
+    -- Intercambio de Cédulas
+    cedula = cedula_conyuge,
+    cedula_conyuge = cedula,
+    
+    -- Intercambio de Nombres y Apellidos
+    nombres = nombres_conyuge,
+    nombres_conyuge = nombres,
+    apellidos = apellidos_conyuge,
+    apellidos_conyuge = apellidos,
+    
+    -- Intercambio de Género y Nacimiento
+    genero = genero_conyuge,
+    genero_conyuge = genero,
+    nacimiento = nacimiento_conyuge,
+    nacimiento_conyuge = nacimiento,
+    edad_so = edad_co,
+    edad_co = edad_so,
+    
+    -- Intercambio de Contacto y Ocupación
+    celular = celular_conyuge,
+    celular_conyuge = celular,
+    correo = correo_conyuge,
+    correo_conyuge = correo,
+    id_ocupacion = id_ocupacion_conyuge,
+    id_ocupacion_conyuge = id_ocupacion,
+    
+    -- Intercambio de Condiciones Especiales
+    embarazada = conyuge_embarazada,
+    conyuge_embarazada = embarazada,
+    discapacidad = conyuge_discapacidad,
+    conyuge_discapacidad = discapacidad,
+    id_discapacidad = id_discapacidad_conyuge,
+    id_discapacidad_conyuge = id_discapacidad,
+    empleado = conyuge_empleado,
+    conyuge_empleado = empleado,
+    
+    -- Intercambio de Ingresos y Datos Laborales
+    ingresos_so = ingresos_co,
+    ingresos_co = ingresos_so,
+    tss_salario_prom_so = tss_salario_prom_co,
+    tss_salario_prom_co = tss_salario_prom_so
+    
+WHERE codigo_solicitud = '${codigo}';`;
+      };
+
+      function generate() {
+        const codigo = codigoInput.value.trim().toUpperCase();
+        if (!codigo) {
+          codigoInput.focus();
+          codigoInput.style.borderColor = "#ef4444";
+          setTimeout(() => (codigoInput.style.borderColor = ""), 2000);
+          return;
+        }
+        generateBtn.innerHTML = "Generando...";
+        setTimeout(() => {
+          codeOutput.innerHTML = getSqlTemplate(codigo);
+          resultContainer.classList.add("visible");
+          generateBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8"/><path d="M3 21h18"/><path d="m21 7-6-6m6 6v4.8m0-4.8h-4.8"/><path d="M3 3h18"/><path d="M3 12h18"/></svg>
+                Generar Script
+            `;
+          if (window.innerWidth < 1000) {
+            resultContainer.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }, 300);
+      }
+
+      generateBtn.addEventListener("click", generate);
+      codigoInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") generate();
+      });
+
+      copyBtn.addEventListener("click", () => {
+        const codigo = codigoInput.value.trim().toUpperCase();
+        if (!codigo) return;
+        const rawSql = getRawSql(codigo);
+        navigator.clipboard.writeText(rawSql).then(() => {
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M20 6 9 17l-5-5"/></svg>
+                Copiado
+            `;
+          copyBtn.classList.add("copied");
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.classList.remove("copied");
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
+</html>
