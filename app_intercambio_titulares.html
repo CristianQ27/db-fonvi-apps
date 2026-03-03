@@ -578,97 +578,121 @@
       const copyBtn = document.getElementById("copyBtn");
 
       const getSqlTemplate = (codigo) => {
-        return `<span class="sql-keyword">UPDATE</span> solicitudes 
+        return `<span class="sql-keyword">SELECT</span> 
+    cedula, nombres, apellidos, genero, nacimiento, edad_so, 
+    celular, correo, id_ocupacion, 
+    embarazada, discapacidad, id_discapacidad, empleado, 
+    ingresos_so, tss_salario_prom_so
+<span class="sql-keyword">INTO</span> 
+    @t_cedula, @t_nombres, @t_apellidos, @t_genero, @t_nacimiento, @t_edad_so, 
+    @t_celular, @t_correo, @t_id_ocupacion, 
+    @t_embarazada, @t_discapacidad, @t_id_discapacidad, @t_empleado, 
+    @t_ingresos_so, @t_tss_salario_prom_so
+<span class="sql-keyword">FROM</span> solicitudes <span class="sql-keyword">WHERE</span> codigo_solicitud <span class="sql-operator">=</span> <span class="sql-string">'${codigo}'</span>;
+
+<span class="sql-keyword">UPDATE</span> solicitudes 
 <span class="sql-keyword">SET</span> 
     <span class="sql-comment">-- Intercambio de Cédulas</span>
     cedula <span class="sql-operator">=</span> cedula_conyuge,
-    cedula_conyuge <span class="sql-operator">=</span> cedula,
+    cedula_conyuge <span class="sql-operator">=</span> @t_cedula,
     
     <span class="sql-comment">-- Intercambio de Nombres y Apellidos</span>
     nombres <span class="sql-operator">=</span> nombres_conyuge,
-    nombres_conyuge <span class="sql-operator">=</span> nombres,
+    nombres_conyuge <span class="sql-operator">=</span> @t_nombres,
     apellidos <span class="sql-operator">=</span> apellidos_conyuge,
-    apellidos_conyuge <span class="sql-operator">=</span> apellidos,
+    apellidos_conyuge <span class="sql-operator">=</span> @t_apellidos,
     
     <span class="sql-comment">-- Intercambio de Género y Nacimiento</span>
     genero <span class="sql-operator">=</span> genero_conyuge,
-    genero_conyuge <span class="sql-operator">=</span> genero,
+    genero_conyuge <span class="sql-operator">=</span> @t_genero,
     nacimiento <span class="sql-operator">=</span> nacimiento_conyuge,
-    nacimiento_conyuge <span class="sql-operator">=</span> nacimiento,
+    nacimiento_conyuge <span class="sql-operator">=</span> @t_nacimiento,
     edad_so <span class="sql-operator">=</span> edad_co,
-    edad_co <span class="sql-operator">=</span> edad_so,
+    edad_co <span class="sql-operator">=</span> @t_edad_so,
     
     <span class="sql-comment">-- Intercambio de Contacto y Ocupación</span>
     celular <span class="sql-operator">=</span> celular_conyuge,
-    celular_conyuge <span class="sql-operator">=</span> celular,
+    celular_conyuge <span class="sql-operator">=</span> @t_celular,
     correo <span class="sql-operator">=</span> correo_conyuge,
-    correo_conyuge <span class="sql-operator">=</span> correo,
+    correo_conyuge <span class="sql-operator">=</span> @t_correo,
     id_ocupacion <span class="sql-operator">=</span> id_ocupacion_conyuge,
-    id_ocupacion_conyuge <span class="sql-operator">=</span> id_ocupacion,
+    id_ocupacion_conyuge <span class="sql-operator">=</span> @t_id_ocupacion,
     
     <span class="sql-comment">-- Intercambio de Condiciones Especiales</span>
     embarazada <span class="sql-operator">=</span> conyuge_embarazada,
-    conyuge_embarazada <span class="sql-operator">=</span> embarazada,
+    conyuge_embarazada <span class="sql-operator">=</span> @t_embarazada,
     discapacidad <span class="sql-operator">=</span> conyuge_discapacidad,
-    conyuge_discapacidad <span class="sql-operator">=</span> discapacidad,
+    conyuge_discapacidad <span class="sql-operator">=</span> @t_discapacidad,
     id_discapacidad <span class="sql-operator">=</span> id_discapacidad_conyuge,
-    id_discapacidad_conyuge <span class="sql-operator">=</span> id_discapacidad,
+    id_discapacidad_conyuge <span class="sql-operator">=</span> @t_id_discapacidad,
     empleado <span class="sql-operator">=</span> conyuge_empleado,
-    conyuge_empleado <span class="sql-operator">=</span> empleado,
+    conyuge_empleado <span class="sql-operator">=</span> @t_empleado,
     
     <span class="sql-comment">-- Intercambio de Ingresos y Datos Laborales</span>
     ingresos_so <span class="sql-operator">=</span> ingresos_co,
-    ingresos_co <span class="sql-operator">=</span> ingresos_so,
+    ingresos_co <span class="sql-operator">=</span> @t_ingresos_so,
     tss_salario_prom_so <span class="sql-operator">=</span> tss_salario_prom_co,
-    tss_salario_prom_co <span class="sql-operator">=</span> tss_salario_prom_so
+    tss_salario_prom_co <span class="sql-operator">=</span> @t_tss_salario_prom_so
     
 <span class="sql-keyword">WHERE</span> codigo_solicitud <span class="sql-operator">=</span> <span class="sql-string">'${codigo}'</span>;`;
       };
 
       const getRawSql = (codigo) => {
-        return `UPDATE solicitudes 
+        return `SELECT 
+    cedula, nombres, apellidos, genero, nacimiento, edad_so, 
+    celular, correo, id_ocupacion, 
+    embarazada, discapacidad, id_discapacidad, empleado, 
+    ingresos_so, tss_salario_prom_so
+INTO 
+    @t_cedula, @t_nombres, @t_apellidos, @t_genero, @t_nacimiento, @t_edad_so, 
+    @t_celular, @t_correo, @t_id_ocupacion, 
+    @t_embarazada, @t_discapacidad, @t_id_discapacidad, @t_empleado, 
+    @t_ingresos_so, @t_tss_salario_prom_so
+FROM solicitudes WHERE codigo_solicitud = '${codigo}';
+
+UPDATE solicitudes 
 SET 
     -- Intercambio de Cédulas
     cedula = cedula_conyuge,
-    cedula_conyuge = cedula,
+    cedula_conyuge = @t_cedula,
     
     -- Intercambio de Nombres y Apellidos
     nombres = nombres_conyuge,
-    nombres_conyuge = nombres,
+    nombres_conyuge = @t_nombres,
     apellidos = apellidos_conyuge,
-    apellidos_conyuge = apellidos,
+    apellidos_conyuge = @t_apellidos,
     
     -- Intercambio de Género y Nacimiento
     genero = genero_conyuge,
-    genero_conyuge = genero,
+    genero_conyuge = @t_genero,
     nacimiento = nacimiento_conyuge,
-    nacimiento_conyuge = nacimiento,
+    nacimiento_conyuge = @t_nacimiento,
     edad_so = edad_co,
-    edad_co = edad_so,
+    edad_co = @t_edad_so,
     
     -- Intercambio de Contacto y Ocupación
     celular = celular_conyuge,
-    celular_conyuge = celular,
+    celular_conyuge = @t_celular,
     correo = correo_conyuge,
-    correo_conyuge = correo,
+    correo_conyuge = @t_correo,
     id_ocupacion = id_ocupacion_conyuge,
-    id_ocupacion_conyuge = id_ocupacion,
+    id_ocupacion_conyuge = @t_id_ocupacion,
     
     -- Intercambio de Condiciones Especiales
     embarazada = conyuge_embarazada,
-    conyuge_embarazada = embarazada,
+    conyuge_embarazada = @t_embarazada,
     discapacidad = conyuge_discapacidad,
-    conyuge_discapacidad = discapacidad,
+    conyuge_discapacidad = @t_discapacidad,
     id_discapacidad = id_discapacidad_conyuge,
-    id_discapacidad_conyuge = id_discapacidad,
+    id_discapacidad_conyuge = @t_id_discapacidad,
     empleado = conyuge_empleado,
-    conyuge_empleado = empleado,
+    conyuge_empleado = @t_empleado,
     
     -- Intercambio de Ingresos y Datos Laborales
     ingresos_so = ingresos_co,
-    ingresos_co = ingresos_so,
+    ingresos_co = @t_ingresos_so,
     tss_salario_prom_so = tss_salario_prom_co,
-    tss_salario_prom_co = tss_salario_prom_so
+    tss_salario_prom_co = @t_tss_salario_prom_so
     
 WHERE codigo_solicitud = '${codigo}';`;
       };
