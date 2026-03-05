@@ -114,8 +114,8 @@
           <div class="relative">
             <select id="tipoAfectado" class="w-full bg-dark-bg/60 border-2 border-dark-border rounded-xl px-4 py-3 text-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all appearance-none cursor-pointer">
               <option value="principal">Solicitante Principal</option>
-              <option value="conyuge">Co-solicitante (Cónyuge)</option>
-              <option value="ambos">Ambos (Principal y Cónyuge)</option>
+              <option value="conyuge">Co-solicitante</option>
+              <option value="ambos">Ambos (Principal y Co-solicitante)</option>
             </select>
             <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -191,7 +191,7 @@
         <div id="formConyuge" class="hidden bg-dark-bg/40 border border-white/5 rounded-2xl p-6">
           <h2 class="text-xl font-semibold text-white mb-6 flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pink-500"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Datos: Co-solicitante (Cónyuge)
+            Datos: Co-solicitante
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <div class="flex flex-col gap-2">
@@ -323,8 +323,8 @@
       } else if (val === 'ambos') {
         formPrincipal.classList.remove('hidden');
         formConyuge.classList.remove('hidden');
-        formulariosContainer.classList.remove('grid-cols-1');
-        formulariosContainer.classList.add('lg:grid-cols-2');
+        formulariosContainer.classList.remove('lg:grid-cols-2');
+        formulariosContainer.classList.add('grid-cols-1');
       }
     });
 
