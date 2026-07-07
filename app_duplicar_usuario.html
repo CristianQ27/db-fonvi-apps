@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duplicar Usuario | Fonvi Apps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ["Outfit", "sans-serif"] },
+          colors: {
+            brand: {
+              50: "#eef2ff",
+              100: "#e0e7ff",
+              500: "#6366f1",
+              600: "#4f46e5",
+            },
+            dark: {
+              bg: "#0f172a",
+              surface: "#1e293b",
+              border: "#334155",
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0f172a;
+      background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 100%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+      color: #f8fafc;
+    }
+    .sql-keyword { color: #c084fc; font-weight: bold; }
+    .sql-string { color: #86efac; }
+    .sql-number { color: #fca5a5; }
+    .sql-comment { color: #64748b; font-style: italic; }
+    .sql-operator { color: #f472b6; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="fixed top-0 left-0 w-72 h-screen border-r border-white/10 bg-dark-bg/40 backdrop-blur-xl p-8 flex flex-col z-50 transition-all">
+    <div class="flex items-center gap-4 mb-12">
+      <div class="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-brand-500/20">F</div>
+      <span class="font-bold text-lg bg-gradient-to-br from-white to-slate-400 bg-clip-text text-transparent">Fonvi Apps</span>
+    </div>
+    <ul class="flex flex-col gap-2">
+      <li>
+        <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="App de cambio de codigo v2.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2"/><path d="M8 17h2"/><path d="M14 13h2"/><path d="M14 17h2"/></svg>
+          Cambio estado/proceso
+        </a>
+      </li>
+      <li>
+        <a href="app actualizar puntajes.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><path d="m9.01 13 4 4"/></svg>
+          Puntajes
+        </a>
+      </li>
+      <li>
+        <a href="app_intercambio_titulares.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+          Intercambio Titulares
+        </a>
+      </li>
+      <li>
+        <a href="app_cambio_solicitantes.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Modificar Solicitante
+        </a>
+      </li>
+      <li>
+        <a href="app_duplicar_usuario.html" class="flex items-center gap-3 px-4 py-3 text-brand-500 bg-brand-500/10 border border-brand-500/20 rounded-xl transition-all font-medium text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 3v4"/><path d="M21 5h-4"/><line x1="15" x2="15" y1="7" y2="13"/><line x1="12" x2="18" y1="10" y2="10"/></svg>
+          Duplicar Usuario
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-72 flex-1 p-10 flex flex-col items-center">
+    <div class="w-full max-w-4xl bg-dark-surface/70 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/50 animate-[fadeIn_0.5s_ease-out]">
+      <header class="text-center mb-10">
+        <h1 class="text-4xl font-bold bg-gradient-to-br from-indigo-400 to-pink-400 bg-clip-text text-transparent mb-3">Duplicar Usuario</h1>
+        <p class="text-slate-400">Genera el script SQL para duplicar un usuario existente en <code class="text-brand-500 bg-brand-500/10 px-2 py-0.5 rounded text-sm">gestion_dbx.users</code>.</p>
+      </header>
+
+      <div class="bg-dark-bg/40 border border-yellow-400/20 p-4 rounded-xl flex items-start gap-3 mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="text-sm text-yellow-400"><strong>Nota:</strong> El script copia todos los permisos y configuraciones del usuario origen. Solo se personalizan el <strong>ID</strong>, <strong>nombre</strong> y <strong>correo</strong> del nuevo usuario.</p>
+      </div>
+
+      <!-- Form -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">ID Nuevo</label>
+          <input type="number" id="newId" placeholder="Ej: 107" class="bg-dark-bg/60 border-2 border-dark-border rounded-xl px-4 py-3 text-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Nombre del Nuevo Usuario</label>
+          <input type="text" id="newName" placeholder="Ej: Estefania Manriquez" class="bg-dark-bg/60 border-2 border-dark-border rounded-xl px-4 py-3 text-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Correo Electrónico</label>
+          <input type="email" id="newEmail" placeholder="Ej: estefania.manriquez@fonvivienda.gob.do" class="bg-dark-bg/60 border-2 border-dark-border rounded-xl px-4 py-3 text-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all" />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">ID Usuario a Copiar</label>
+          <input type="number" id="sourceId" placeholder="Ej: 33" class="bg-dark-bg/60 border-2 border-dark-border rounded-xl px-4 py-3 text-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 outline-none transition-all" />
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <button id="generateBtn" class="bg-gradient-to-br from-brand-500 to-brand-600 hover:from-brand-600 hover:to-indigo-700 text-white font-semibold py-4 px-10 rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:scale-105 transition-all flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 3v4"/><path d="M21 5h-4"/><line x1="15" x2="15" y1="7" y2="13"/><line x1="12" x2="18" y1="10" y2="10"/></svg>
+          Generar Script SQL
+        </button>
+      </div>
+
+      <!-- Resultado -->
+      <div id="resultContainer" class="hidden mt-12 animate-[fadeIn_0.5s_ease-out]">
+        <div class="bg-dark-bg rounded-2xl border border-dark-border overflow-hidden">
+          <div class="flex justify-between items-center bg-white/5 px-6 py-4 border-b border-dark-border">
+            <h3 class="font-semibold text-slate-300 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              Script de Inserción (INSERT INTO ... SELECT)
+            </h3>
+            <button class="copy-btn text-xs text-slate-400 hover:text-white bg-transparent hover:bg-white/10 border border-dark-border rounded-lg px-3 py-1.5 transition-all" data-target="sqlResult">Copiar</button>
+          </div>
+          <div class="p-6 overflow-x-auto">
+            <pre id="sqlResult" class="font-mono text-sm leading-relaxed whitespace-pre-wrap break-all"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const highlightSQL = (sql) => {
+      if (!sql) return '';
+      return sql
+        .replace(/\b(INSERT INTO|SELECT|FROM|WHERE|VALUES|AND|OR|SET|UPDATE|DELETE|CREATE|TABLE|ALTER|DROP|INDEX|VIEW|PROCEDURE|FUNCTION|TRIGGER|IF|NOT|EXISTS|NULL|DEFAULT|CURRENT_TIMESTAMP|LEFT|JOIN|ON|AS|IN|LIKE|BETWEEN|IS)\b/gi, '<span class="sql-keyword">$1</span>')
+        .replace(/('.*?')/g, '<span class="sql-string">$1</span>')
+        .replace(/(--.*)/g, '<span class="sql-comment">$1</span>')
+        .replace(/(\b\d+\b)/g, '<span class="sql-number">$1</span>')
+        .replace(/(`\w+`)/g, '<span class="sql-keyword">$1</span>')
+        .replace(/(=|,|;)/g, '<span class="sql-operator">$1</span>');
+    };
+
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const newId = document.getElementById('newId').value.trim();
+      const newName = document.getElementById('newName').value.trim();
+      const newEmail = document.getElementById('newEmail').value.trim();
+      const sourceId = document.getElementById('sourceId').value.trim();
+
+      if (!newId || !newName || !newEmail || !sourceId) {
+        alert('Todos los campos son obligatorios.');
+        return;
+      }
+
+      const query = `-- ======================================================
+-- Duplicar usuario
+-- Nuevo ID: ${newId}
+-- Nombre: ${newName}
+-- Correo: ${newEmail}
+-- Copiado desde usuario ID: ${sourceId}
+-- ======================================================
+
+INSERT INTO gestion_dbx.users (
+    id, name, email, email_verified_at, password, two_factor_secret,
+    two_factor_recovery_codes, two_factor_confirmed_at, avatar, picture,
+    \`role\`, verified, active, remember_token, busqueda, depuracion,
+    rectificacion, referidos, contacto, preseleccion, validacion,
+    asignacion, representante, interes, finanzas, desarrollador,
+    mantenimiento, nomina, personal, new_user, telegram,
+    telegram_chat_id, created_at, updated_at
+)
+SELECT
+    ${newId},                        -- ID nuevo
+    '${newName.replace(/'/g, "''")}',-- Nombre nuevo
+    '${newEmail.replace(/'/g, "''")}',-- Correo nuevo
+    email_verified_at,
+    password,
+    two_factor_secret,
+    two_factor_recovery_codes,
+    two_factor_confirmed_at,
+    avatar,
+    picture,
+    \`role\`,
+    verified,
+    active,
+    remember_token,
+    busqueda,
+    depuracion,
+    rectificacion,
+    referidos,
+    contacto,
+    preseleccion,
+    validacion,
+    asignacion,
+    representante,
+    interes,
+    finanzas,
+    desarrollador,
+    mantenimiento,
+    nomina,
+    personal,
+    new_user,
+    telegram,
+    telegram_chat_id,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+FROM gestion_dbx.users
+WHERE id = ${sourceId};
+
+-- Verificacion
+SELECT * FROM gestion_dbx.users WHERE id = ${newId};`;
+
+      const resultContainer = document.getElementById('resultContainer');
+      const elResult = document.getElementById('sqlResult');
+
+      elResult.innerHTML = highlightSQL(query);
+      elResult.dataset.raw = query;
+      resultContainer.classList.remove('hidden');
+      resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.target;
+        const textToCopy = document.getElementById(targetId).dataset.raw;
+        if (!textToCopy) return;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '¡Copiado!';
+          btn.classList.add('text-brand-500', 'border-brand-500');
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.classList.remove('text-brand-500', 'border-brand-500');
+          }, 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
